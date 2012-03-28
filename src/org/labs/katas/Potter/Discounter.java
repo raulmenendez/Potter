@@ -1,8 +1,10 @@
 package org.labs.katas.Potter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 public class Discounter {
 
@@ -13,39 +15,38 @@ public class Discounter {
 	private static final double DISCOUNT_4 = 0.20;
 	private static final double DISCOUNT_5 = 0.25;
 	
-	public double calculateBestDiscountAvailable(BookShopCart shopcart) {
-		double finalPrice=0.0;
-		int bookSeries = shopcart.getDifferentBookSeries();
+	public double calculateBestDiscountFrom(BookShopCart shopCart) {
+		
+		int bookSeries = shopCart.getDifferentBookSeries();
 					
 		//Mentre quedin llibres al ShopCart
 		//1. 8 llibres = 5 + 3 vs 4*2 (best offer!)
 		//Emmagatzemar els diferents cistells [51.6, 51.2,...] 
-		ArrayList<Object> discountSet = new ArrayList<Object>();
+		ArrayList<Double> discountsAvailable = new ArrayList<Double>();
 		
 		//Quans llibres diferents tenim?. Si tenim 5 podem aplicar com a minim la oferta de 5!
 		//Si el llibre que queda es 1 no fa falta aplicar cap descompte ja que no hi ha descompte aplicable.
 		while (bookSeries>1){
-			//Fem copia del carret per iterar i esborrar els elements iterats sense fer malbé el carret de la compra.
-			HashMap<String, Integer> shopCartCopy = new HashMap<String, Integer>();
-			shopCartCopy.putAll(shopcart.getBooksShopCart());
 			
 			//La primera iteracio ve donada pels diferents llibres que tenim. Absurd mira descompte de 5 si només tenim 4 llibres diferents(!)
-			double discountPrice = this.calculateDiscount(shopCartCopy, bookSeries);
+			double discountPrice = this.calculateDiscount(shopCart, bookSeries);
 			
 			//Guardem el descompte aplicat
-			discountSet.add(discountPrice);	
+			discountsAvailable.add(discountPrice);	
 			
 			//Passem a mirar una iteració basada en un llibre menys per veure el seu preu 
 			bookSeries -= 1;			
 		}
 		//Mirem d'obtenir el millor descompte possible. 
-		finalPrice = getBestPriceFrom(shopcart,discountSet);
-		return finalPrice;
+		return getBestPriceFrom(discountsAvailable);
 	}
 	
-	private double calculateDiscount(HashMap<String, Integer> shopCart, int maxDiscountSetToApply) {
+	public double calculateDiscount(BookShopCart _shopCart, int maxDiscountSetToApply) {
 			
 			double finalPrice = 0.0;					
+			//Fem copia del carret per iterar i esborrar els elements iterats sense fer malbé el carret de la compra.
+			HashMap<String, Integer> shopCart = new HashMap<String, Integer>();
+			shopCart.putAll(_shopCart.getBooksShopCart());
 			
 			//Mentre quedin llibres al ShopCart, hem de mirar el descompte que podem oferir (a partir del Set m‡xim de llibres diferents per SËrie)
 			while (shopCart.isEmpty() == false){			
@@ -106,19 +107,14 @@ public class Discounter {
 		return discountToApply;
 	}
 	
-	private double getBestPriceFrom(BookShopCart shopCart, ArrayList<Object> prices) {
-		
-		double bestDiscount = shopCart.getQuantityOfBooks()*PRICE;		
-		
-		for(Object price:prices){
-			double currentDiscountAvailable = ((Double)price).doubleValue();
-			if (bestDiscount>currentDiscountAvailable){
-				//tenim un descompte millor que podem aplicar. 
-				bestDiscount = currentDiscountAvailable;
-			}
+	private double getBestPriceFrom(List<Double> prices) {
+		double price = 0.0;
+		if (prices.size()>0){
+			Collections.sort(prices);
+			price = prices.get(0).doubleValue();
 		}
+		return price;
 		
-		return bestDiscount;
 	}
 
 }

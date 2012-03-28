@@ -1,9 +1,5 @@
 package org.labs.katas.Potter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-
 public class Cashier {
 	
 	private BookShopCart shopcart;
@@ -12,16 +8,9 @@ public class Cashier {
 	private static final int PRICE = 8;	
 	
 	public double calculate(BookShopCart shopcart, Discounter discounter) {
-		
-		double totalAmount = 0.0;
 		this.shopcart = shopcart;
 		this.discounter = discounter;
-		
-		if (shopcart.hasBooks()){	
-			totalAmount = calculatePriceToApply();
-		}
-		
-		return totalAmount;
+		return calculatePriceToApply();
 	}
 	
 	private double calculatePriceToApply() {
@@ -36,7 +25,7 @@ public class Cashier {
 	}
 	
 	private double calculatePriceWithDiscount(){
-		return this.discounter.calculateBestDiscountAvailable(shopcart);
+		return this.discounter.calculateBestDiscountFrom(shopcart);
 	}
 
 	private boolean discountNotAvailable() {
