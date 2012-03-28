@@ -9,22 +9,24 @@ public class KataPotterTest {
 	
 	private BookShopCart shopcart;
 	private Cashier cashier;
+	private Discounter discounter;
 	
 	@Before
 	public void setUp(){
 		 shopcart = new BookShopCart();	
-		 cashier = new Cashier();		 
+		 cashier = new Cashier();	
+		 discounter = new Discounter();
 	}
 	
 	@Test
 	public void no_book_at_all(){		
-		assertEquals(0.0,cashier.calculate(shopcart),0.0);
+		assertEquals(0.0,cashier.calculate(shopcart, discounter),0.0);
 	}
 	
 	@Test
 	public void one_book_to_buy(){
 		shopcart.addBook("b1");
-		assertEquals(8.0,cashier.calculate(shopcart),0.0);		
+		assertEquals(8.0,cashier.calculate(shopcart, discounter),0.0);		
 	}	
 	
 	@Test
@@ -33,7 +35,7 @@ public class KataPotterTest {
 		shopcart.addBook("b1");
 		shopcart.addBook("b2");
 		
-		assertEquals(15.2,cashier.calculate(shopcart),0.0);	
+		assertEquals(15.2,cashier.calculate(shopcart, discounter),0.0);	
 	}	
 	
 	@Test
@@ -42,7 +44,7 @@ public class KataPotterTest {
 		shopcart.addBook("b1");
 		shopcart.addBook("b1");
 		
-		assertEquals(16.0,cashier.calculate(shopcart),0.0);	
+		assertEquals(16.0,cashier.calculate(shopcart, discounter),0.0);	
 	}	
 	
 	@Test
@@ -52,7 +54,7 @@ public class KataPotterTest {
 		shopcart.addBook("b2");
 		shopcart.addBook("b3");
 		
-		assertEquals(21.6,cashier.calculate(shopcart),0.0);	
+		assertEquals(21.6,cashier.calculate(shopcart, discounter),0.0);	
 	}	
 		
 	@Test
@@ -62,7 +64,7 @@ public class KataPotterTest {
 		shopcart.addBook("b1");
 		shopcart.addBook("b1");
 		
-		assertEquals(24.0,cashier.calculate(shopcart),0.0);
+		assertEquals(24.0,cashier.calculate(shopcart, discounter),0.0);
 	}	
 	
 	@Test
@@ -73,7 +75,7 @@ public class KataPotterTest {
 		shopcart.addBook("b3");
 		shopcart.addBook("b4");
 		
-		assertEquals(25.6,cashier.calculate(shopcart),0.0);
+		assertEquals(25.6,cashier.calculate(shopcart, discounter),0.0);
 		
 	}
 	
@@ -85,7 +87,7 @@ public class KataPotterTest {
 		shopcart.addBook("b1");
 		shopcart.addBook("b1");
 		
-		assertEquals(32.0,cashier.calculate(shopcart),0.0);
+		assertEquals(32.0,cashier.calculate(shopcart, discounter),0.0);
 		
 	}
 	
@@ -98,7 +100,7 @@ public class KataPotterTest {
 		shopcart.addBook("b4");
 		shopcart.addBook("b5");
 		
-		assertEquals(30.0,cashier.calculate(shopcart),0.0);
+		assertEquals(30.0,cashier.calculate(shopcart, discounter),0.0);
 		
 	}
 	
@@ -111,7 +113,7 @@ public class KataPotterTest {
 		shopcart.addBook("b1");
 		shopcart.addBook("b1");
 		
-		assertEquals(40.0,cashier.calculate(shopcart),0.0);
+		assertEquals(40.0,cashier.calculate(shopcart, discounter),0.0);
 		
 	}
 	
@@ -122,7 +124,7 @@ public class KataPotterTest {
 		shopcart.addBook("b2");
 		shopcart.addBook("b1");
 		
-		assertEquals(23.2,cashier.calculate(shopcart),0.0);
+		assertEquals(23.2,cashier.calculate(shopcart, discounter),0.0);
 		
 	}
 	
@@ -134,7 +136,7 @@ public class KataPotterTest {
 		shopcart.addBook("b1");
 		shopcart.addBook("b2");
 		
-		assertEquals(30.4,cashier.calculate(shopcart),0.0);
+		assertEquals(30.4,cashier.calculate(shopcart, discounter),0.0);
 	}
 	
 	@Test
@@ -149,7 +151,7 @@ public class KataPotterTest {
 		shopcart.addBook("b4");
 		shopcart.addBook("b5");
 		
-		assertEquals(51.20,cashier.calculate(shopcart),0.0);
+		assertEquals(51.20,cashier.calculate(shopcart, discounter),0.0);
 	}
 		
 }
