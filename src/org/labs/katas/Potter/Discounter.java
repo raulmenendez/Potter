@@ -117,4 +117,8 @@ public class Discounter {
 		
 	}
 
+	public boolean isDiscountAvailableFrom(BookShopCart shopcart) {
+		return shopcart.getDifferentBookSeries() > 1;
+	}
+
 }

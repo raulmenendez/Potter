@@ -15,11 +15,10 @@ public class Cashier {
 	
 	private double calculatePriceToApply() {
 		
-		//Si tots els llibres son el mateix no fa falta calcular cap descompte, el preu es l'original.
-		if (discountNotAvailable()){
-			return calculatePriceWithoutDiscount();
+		if (discounter.isDiscountAvailableFrom(shopcart)){
+			return calculatePriceWithDiscount();	
 		}else{
-			return calculatePriceWithDiscount();			
+			return calculatePriceWithoutDiscount();			
 		}
 		
 	}
@@ -28,11 +27,7 @@ public class Cashier {
 		return this.discounter.calculateBestDiscountFrom(shopcart);
 	}
 
-	private boolean discountNotAvailable() {
-		return this.shopcart.getDifferentBookSeries() == 1;
-	}
-	
-	private int calculatePriceWithoutDiscount() {
+	private double calculatePriceWithoutDiscount() {
 		return this.shopcart.getQuantityOfBooks() * PRICE;
 	}
 
